@@ -858,14 +858,16 @@ class CMSRequestHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         parsed_url = urlparse(self.path)
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length)
+        content_length = int(self.headers.get('Content-Length', 0))
+        post_data = self.rfile.read(content_length) if content_length > 0 else b""
         
-        try:
-            data = json.loads(post_data.decode('utf-8'))
-        except Exception:
-            self.send_error_json(400, "요청한 JSON 파싱 중 오류가 발생했습니다.")
-            return
+        data = {}
+        if content_length > 0:
+            try:
+                data = json.loads(post_data.decode('utf-8'))
+            except Exception:
+                # 본문 바디가 필수적이지 않은 API 요청에 대한 무해한 예외 통과
+                pass
 
         # 1. API: 포스트 저장
         if parsed_url.path == "/api/save-post":
