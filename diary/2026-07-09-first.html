@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="개인 홈페이지 제작과 클래식 웹사이트 스타일에 대한 첫 번째 일기">
+    <title>첫 번째 일기 - 새로운 시작 - Art of Life</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../theme.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 왼쪽 사이드바 네비게이션 -->
+        <nav class="sidebar" aria-label="메인 메뉴">
+            <div class="site-title">
+                <a id="nav-brand" href="../index.html">Art of Life</a>
+            </div>
+            
+            <button id="menu-toggle" class="menu-toggle-btn">Menu ☰</button>
+
+            <div class="sidebar-content">
+                <div class="about-section">
+                    <h2><a id="nav-about-sidebar" href="../about.html">About</a></h2>
+                    <p>일상의 소소한 이야기와 개인적인 관심사를 가볍고 편안하게 기록하는 개인 정원입니다.</p>
+                </div>
+
+                <h2>분류 <a id="search-trigger" href="../search.html" style="font-size: 1rem; text-decoration: none; margin-left: 5px;">🔍</a></h2>
+                <ul>
+                    <li><a id="nav-diary" href="index.html">📖 일기장</a></li>
+                    <li><a id="nav-notes" href="../notes/index.html">📝 Notes</a></li>
+                    <li><a id="nav-projects" href="../projects/index.html">💻 Projects</a></li>
+                    <li><a id="nav-thoughts" href="../thought-log/index.html">🧠 사색 일지</a></li>
+                </ul>
+
+                <h2>Theme</h2>
+                <div style="font-family: monospace; font-size: 0.85rem; display: flex; gap: 10px; margin-bottom: 20px;">
+                    <a id="theme-light" class="theme-link" href="#" onclick="setTheme('light'); return false;">Light</a>
+                    <a id="theme-sepia" class="theme-link" href="#" onclick="setTheme('sepia'); return false;">Sepia</a>
+                    <a id="theme-dark" class="theme-link" href="#" onclick="setTheme('dark'); return false;">Dark</a>
+                </div>
+
+                <h2>Contact</h2>
+                <ul class="contact-list">
+                    <li>Email: <a id="contact-email" href="mailto:your-email@example.com">email@example.com</a></li>
+                    <li>GitHub: <a id="contact-github" href="https://github.com/your-username" target="_blank">github.com/username</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- 오른쪽 본문 콘텐츠 -->
+        <main class="content">
+            <header>
+                <h1>첫 번째 일기 - 새로운 시작</h1>
+                <div class="date">작성일: 2026년 7월 9일 목요일</div>
+            </header>
+
+            <article>
+                <p>
+                    오늘 나만의 개인 홈페이지를 만들기 위해 첫 삽을 떴다. 
+                    요즘의 웹사이트들은 온갖 화려한 애니메이션과 무거운 자바스크립트 프레임워크로 가득 차 있다. 
+                    가끔은 그런 복잡함에서 벗어나, 옛날 인터넷이 처음 탄생했을 때의 그 단순함으로 돌아가고 싶을 때가 있다.
+                </p>
+
+                <p>
+                    그래서 이번 홈페이지는 철저하게 HTML 본연의 기능과 아주 최소한의 CSS 스타일만 사용하여 만들기로 결심했다. 
+                    단순히 텍스트와 하이퍼링크로 연결된 이 작은 정원 같은 공간이 벌써 마음에 든다. 
+                    깃허브(GitHub Pages)를 통해 무료로 호스팅할 수 있다는 점도 정적 사이트의 아주 큰 장점이다.
+                </p>
+
+                <p>
+                    앞으로 이곳에 나의 일상과 일기, 그리고 책을 읽고 느낀 점이나 관심사들을 차곡차곡 채워나갈 생각이다. 
+                    시작은 미약하지만 오랜 시간 동안 천천히 나만의 흔적을 남길 수 있는 소중한 공간이 되었으면 좋겠다.
+                </p>
+                
+                <p style="margin-top: 40px;">
+                    <a id="back-to-list" href="index.html" style="text-decoration: underline; color: #0000ee;">← 일기 목록으로 돌아가기</a>
+                </p>
+            </article>
+
+            <footer>
+                <p>© 2026 Art of Life. Built with pure HTML & CSS.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

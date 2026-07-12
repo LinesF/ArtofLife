@@ -1,0 +1,951 @@
+/* 클래식 & 가독성 중심의 스타일시트 */
+
+/* 기본 문서 설정 */
+body {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #222;
+    background-color: #fbfbf9; /* 약간의 미색으로 눈의 피로를 덜어줌 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 전체 컨테이너 및 레이아웃 */
+.container {
+    max-width: 100%;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    gap: 40px;
+}
+
+/* 왼쪽 사이드바 네비게이션 */
+.sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    border-right: 1px double #ccc;
+    padding-right: 20px;
+}
+
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.site-title a {
+    color: #111 !important;
+    text-decoration: none !important;
+}
+
+.site-title a:hover {
+    color: #ff0000 !important;
+    text-decoration: underline !important;
+}
+
+/* 사이드바 About 섹션 스타일 */
+.about-section {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.about-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    margin-top: 0;
+}
+
+.about-section h2 a {
+    color: #111 !important;
+    text-decoration: none !important;
+}
+
+.about-section h2 a:hover {
+    color: #ff0000 !important;
+    text-decoration: underline !important;
+}
+
+.about-section p {
+    margin: 0;
+    text-align: justify;
+}
+
+.sidebar > h2 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar > h2:first-of-type {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 12px;
+}
+
+.sidebar a {
+    color: #0000ee; /* 클래식 브라우저 기본 파란색 링크 */
+    text-decoration: underline;
+}
+
+.sidebar a:visited {
+    color: #551a8b; /* 클래식 방문한 링크 보라색 */
+}
+
+.sidebar a:hover {
+    color: #ff0000; /* 호버 시 빨간색 강조 (클래식 스타일) */
+}
+
+/* 오른쪽 본문 콘텐츠 영역 */
+.content {
+    flex-grow: 1;
+    min-width: 0; /* flex 자식의 overflow 방지 */
+    max-width: 700px; /* 본문 가독성을 지키기 위해 최대 너비 제한 */
+    width: 100%;
+    margin: 0 auto; /* 사이드바 우측 공간 내에서 가로 방향 중앙 정렬 */
+}
+
+/* 타이틀 및 헤더 */
+h1 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 5px;
+}
+
+h3 {
+    font-size: 1.1rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    text-align: justify; /* 본문 텍스트 양끝 정렬로 정돈된 느낌 제공 */
+}
+
+/* 날짜 등 메타 데이터 스타일 */
+.date {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* 클래식 인용구 스타일 */
+blockquote {
+    margin: 20px 0;
+    padding: 10px 20px;
+    border-left: 3px solid #666;
+    background-color: #f5f5f0;
+    font-style: italic;
+}
+
+/* 하단 푸터 */
+footer {
+    margin-top: 50px;
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+    font-size: 0.8rem;
+    font-family: "Courier New", Courier, monospace;
+    color: #666;
+}
+
+/* Contact 스타일 */
+.contact-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.contact-list li {
+    margin-bottom: 8px;
+    color: #444;
+}
+
+.contact-list a {
+    color: #0000ee;
+    text-decoration: underline;
+}
+
+.contact-list a:hover {
+    color: #ff0000;
+}
+
+/* 검색 UI 스타일 */
+.search-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.search-input-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.search-input-wrapper input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    font-family: Georgia, serif;
+    border: 1px solid #999;
+    background-color: #fff;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.05);
+}
+
+.search-input-wrapper input:focus {
+    outline: 1px solid #111;
+}
+
+.search-input-wrapper button {
+    padding: 10px 20px;
+    font-family: monospace;
+    font-size: 1rem;
+    background-color: #f0f0eb;
+    border: 1px solid #999;
+    cursor: pointer;
+}
+
+.search-input-wrapper button:hover {
+    background-color: #e0e0d5;
+}
+
+/* 필터 영역 스타일 */
+.search-filters {
+    border: 1px dashed #ccc;
+    padding: 12px 15px;
+    background-color: #fbfbf9;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+
+.filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.filter-group-title {
+    font-weight: bold;
+    min-width: 80px;
+    font-family: monospace;
+}
+
+.filter-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+/* 결과 항목 스타일 */
+.search-results-list {
+    margin-top: 20px;
+}
+
+.search-result-card {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    margin-bottom: 10px;
+}
+
+.search-result-card:last-child {
+    border-bottom: none;
+}
+
+.search-result-meta {
+    font-size: 0.85rem;
+    color: #666;
+    font-family: monospace;
+    margin-bottom: 6px;
+    display: flex;
+    gap: 15px;
+}
+
+.search-result-title {
+    font-size: 1.25rem;
+    margin: 0 0 8px 0;
+    font-family: Georgia, serif;
+}
+
+.search-result-title a {
+    color: #0000ee;
+    text-decoration: underline;
+}
+
+.search-result-title a:hover {
+    color: #ff0000;
+}
+
+.search-result-snippet {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.5;
+    margin: 0;
+    text-align: justify;
+}
+
+.search-result-similarity {
+    font-size: 0.75rem;
+    color: #008800;
+    font-family: monospace;
+    font-weight: bold;
+    background-color: #e6fcf5;
+    padding: 2px 6px;
+    border-radius: 2px;
+}
+
+/* 페이지네이션 스타일 */
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 40px;
+    font-family: monospace;
+}
+
+.pagination-btn {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #0000ee;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.pagination-btn:hover {
+    background-color: #f0f0eb;
+    color: #ff0000;
+    border-color: #999;
+}
+
+.pagination-btn.active {
+    background-color: #111;
+    color: #fff;
+    border-color: #111;
+    font-weight: bold;
+    cursor: default;
+}
+
+.pagination-btn.disabled {
+    color: #999;
+    border-color: #eee;
+    background-color: #fafafa;
+    cursor: not-allowed;
+}
+
+/* 더블 레인지 슬라이더 커스텀 스타일 */
+.range-slider-container {
+    position: relative;
+    width: 220px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.range-slider-container input[type="range"] {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    z-index: 2;
+}
+
+.range-slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #111;
+    border: 1px solid #777;
+    cursor: pointer;
+    pointer-events: auto; /* 썸만 마우스 이벤트 감지 */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.range-slider-container input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #111;
+    border: 1px solid #777;
+    cursor: pointer;
+    pointer-events: auto; /* 썸만 마우스 이벤트 감지 */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    border: 1px solid #777;
+}
+
+.slider-track {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: #ddd;
+    border-radius: 2px;
+    z-index: 1;
+}
+
+/* 목차 (TOC) 스타일 */
+.toc-box {
+    border: 1px solid #ccc;
+    padding: 15px;
+    background-color: #f5f5f0;
+    margin-bottom: 30px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.toc-title {
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #999;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.toc-box ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 0.9rem;
+}
+
+.toc-box li {
+    margin-bottom: 6px;
+}
+
+.toc-box a {
+    color: #0000ee;
+    text-decoration: underline;
+}
+
+.toc-box a:hover {
+    color: #ff0000;
+}
+
+/* 모바일 토글 버튼 기본 감춤 (PC 기준) */
+.menu-toggle-btn {
+    display: none;
+}
+
+/* -----------------------------------------------------------------
+   테마별 오버라이드 색상 체계 (다크 / 세피아)
+   ----------------------------------------------------------------- */
+
+/* 1. 클래식 다크 모드 (Sepia & Dark Theme) */
+.dark-mode {
+    color: #dcdcc6;
+    background-color: #1c1c1a;
+}
+
+.dark-mode .site-title a {
+    color: #ffffff !important;
+}
+
+.dark-mode .site-title a:hover {
+    color: #ff8a80 !important;
+}
+
+/* 일반 링크 및 본문 링크 */
+.dark-mode a {
+    color: #8ab4f8;
+}
+
+.dark-mode a:visited {
+    color: #c5a3e8;
+}
+
+.dark-mode a:hover {
+    color: #ff8a80;
+}
+
+/* 사이드바 링크 및 텍스트 (파란색으로 묻히는 가독성 해결) */
+.dark-mode .sidebar a,
+.dark-mode #nav-about-sidebar,
+.dark-mode #contact-email,
+.dark-mode #contact-github {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+.dark-mode .sidebar a:hover,
+.dark-mode #nav-about-sidebar:hover,
+.dark-mode #contact-email:hover,
+.dark-mode #contact-github:hover {
+    color: #ff8a80 !important;
+}
+
+.dark-mode .sidebar .about-section p {
+    color: #c0c0b5;
+}
+
+.dark-mode .sidebar h2 {
+    color: #ffffff;
+    border-bottom-color: #444;
+}
+
+.dark-mode .sidebar .contact-list,
+.dark-mode .contact-list li {
+    color: #ffffff !important; /* Email, GitHub 라벨 글씨도 흰색으로 고정 */
+}
+
+/* 글 목록 테이블 내의 제목 링크 (파란색 대신 흰색 고정 - 과거/미래 모든 글에 적용됨) */
+.dark-mode table td a {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+.dark-mode table td a:hover {
+    color: #ff8a80 !important;
+}
+
+/* 개별 게시글 하단 '← 목록으로 돌아가기' 링크 강제 흰색화 */
+.dark-mode #back-to-list {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+.dark-mode #back-to-list:hover {
+    color: #ff8a80 !important;
+}
+
+.dark-mode .sidebar {
+    border-right-color: #444;
+}
+
+/* 본문 헤더 및 글자 가독성 보강 */
+.dark-mode h1, .dark-mode h2, .dark-mode h3 {
+    color: #ffffff;
+    border-bottom-color: #444;
+}
+
+.dark-mode .date {
+    color: #a0a095;
+}
+
+.dark-mode blockquote {
+    background-color: #242422;
+    border-left-color: #888;
+    color: #c0c0b5;
+}
+
+.dark-mode footer {
+    border-top-color: #444;
+    color: #888880;
+}
+
+.dark-mode .toc-box {
+    border-color: #444;
+    background-color: #242422;
+}
+
+.dark-mode .toc-title {
+    color: #ffffff;
+    border-bottom-color: #666;
+}
+
+/* 검색 UI 다크모드 가독성 강화 */
+.dark-mode .filter-group {
+    color: #ffffff;
+}
+
+.dark-mode .filter-group-title {
+    color: #ffffff;
+}
+
+.dark-mode .filter-label {
+    color: #dcdcc6;
+}
+
+.dark-mode #range-value-display {
+    color: #ffffff !important;
+}
+
+.dark-mode .search-filters {
+    border-color: #444;
+    background-color: #222220;
+}
+
+.dark-mode .search-input-wrapper input {
+    background-color: #292927;
+    border-color: #666;
+    color: #ffffff;
+}
+
+.dark-mode .search-input-wrapper input::placeholder {
+    color: #888880;
+}
+
+.dark-mode .search-input-wrapper button {
+    background-color: #2d2d2a;
+    border-color: #666;
+    color: #ffffff;
+}
+
+.dark-mode .search-input-wrapper button:hover {
+    background-color: #3d3d3a;
+}
+
+/* 검색 결과 카드 내 연한 글씨 및 파란색 가독성 개선 */
+.dark-mode .search-result-card {
+    border-bottom-color: #444;
+}
+
+.dark-mode .search-result-title a {
+    color: #ffffff; /* 파란색 제목을 선명한 흰색으로 교체 */
+    text-decoration: underline;
+}
+
+.dark-mode .search-result-title a:hover {
+    color: #ff8a80;
+}
+
+.dark-mode .search-result-meta {
+    color: #a0a095; /* 연한 메타 텍스트 명도 향상 */
+}
+
+.dark-mode .search-result-snippet {
+    color: #cccccc; /* 본문 요약 회색을 한 단계 밝은 회색으로 보정 */
+}
+
+.dark-mode .search-result-similarity {
+    color: #a3e2a3;
+    background-color: #1b3820;
+}
+
+/* 페이지네이션 및 기타 */
+.dark-mode .pagination-btn {
+    border-color: #444;
+    background-color: #1c1c1a;
+    color: #8ab4f8;
+}
+
+.dark-mode .pagination-btn:hover {
+    background-color: #2d2d2a;
+    color: #ff8a80;
+}
+
+.dark-mode .pagination-btn.active {
+    background-color: #ffffff;
+    color: #1c1c1a;
+    border-color: #ffffff;
+}
+
+.dark-mode .pagination-btn.disabled {
+    color: #555;
+    border-color: #333;
+    background-color: #222;
+}
+
+.dark-mode .menu-toggle-btn {
+    background-color: #2a2a28;
+    border-color: #555;
+    color: #ffffff;
+}
+
+.dark-mode table tr {
+    border-bottom-color: #333 !important;
+}
+
+.dark-mode table th {
+    color: #ffffff;
+    border-bottom-color: #555 !important;
+}
+
+.dark-mode table td {
+    color: #dcdcc6;
+}
+
+/* 2. 클래식 세피아 모드 (Sepia Theme) */
+.sepia-mode {
+    color: #4b3621;
+    background-color: #f4ecd8;
+}
+
+.sepia-mode .site-title a {
+    color: #4b3621 !important;
+}
+
+.sepia-mode .site-title a:hover {
+    color: #ff4500 !important;
+}
+
+.sepia-mode a {
+    color: #a0522d;
+}
+
+.sepia-mode a:visited {
+    color: #800080;
+}
+
+.sepia-mode a:hover {
+    color: #ff4500;
+}
+
+.sepia-mode .sidebar {
+    border-right-color: #d3c2a0;
+}
+
+.sepia-mode h1, .sepia-mode h2, .sepia-mode h3 {
+    border-bottom-color: #d3c2a0;
+}
+
+.sepia-mode .date {
+    color: #8b7355;
+}
+
+.sepia-mode blockquote {
+    background-color: #eae0c8;
+    border-left-color: #8b5a2b;
+}
+
+.sepia-mode footer {
+    border-top-color: #d3c2a0;
+    color: #8b7355;
+}
+
+.sepia-mode .toc-box {
+    border-color: #d3c2a0;
+    background-color: #eae0c8;
+}
+
+.sepia-mode .toc-title {
+    border-bottom-color: #c4b391;
+}
+
+.sepia-mode .search-filters {
+    border-color: #d3c2a0;
+    background-color: #eae0c8;
+}
+
+.sepia-mode .search-input-wrapper input {
+    background-color: #faf0e6;
+    border-color: #b8860b;
+    color: #4b3621;
+}
+
+.sepia-mode .search-input-wrapper button {
+    background-color: #eae0c8;
+    border-color: #b8860b;
+    color: #4b3621;
+}
+
+.sepia-mode .search-input-wrapper button:hover {
+    background-color: #dfd4bb;
+}
+
+.sepia-mode .search-result-card {
+    border-bottom-color: #d3c2a0;
+}
+
+.sepia-mode .search-result-meta {
+    color: #8b7355;
+}
+
+.sepia-mode .search-result-similarity {
+    color: #006400;
+    background-color: #d0f0c0;
+}
+
+.sepia-mode .pagination-btn {
+    border-color: #d3c2a0;
+    background-color: #f4ecd8;
+    color: #a0522d;
+}
+
+.sepia-mode .pagination-btn:hover {
+    background-color: #eae0c8;
+    color: #ff4500;
+}
+
+.sepia-mode .pagination-btn.active {
+    background-color: #4b3621;
+    color: #f4ecd8;
+    border-color: #4b3621;
+}
+
+.sepia-mode .pagination-btn.disabled {
+    color: #bfa88f;
+    border-color: #e5d8bc;
+    background-color: #eee4cc;
+}
+
+.sepia-mode .menu-toggle-btn {
+    background-color: #eae0c8;
+    border-color: #b8860b;
+    color: #4b3621;
+}
+
+.sepia-mode table tr {
+    border-bottom-color: #e5d5b5 !important;
+}
+
+.sepia-mode table th {
+    border-bottom-color: #b09f7a !important;
+}
+
+/* -----------------------------------------------------------------
+   모바일 반응형 처리 (사이드바 메뉴 토글 기능 탑재)
+   ----------------------------------------------------------------- */
+@media (max-width: 650px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px double #ccc;
+        padding-right: 0;
+        padding-bottom: 10px;
+    }
+    
+    .sepia-mode .sidebar {
+        border-bottom-color: #d3c2a0;
+    }
+    
+    .dark-mode .sidebar {
+        border-bottom-color: #444;
+    }
+
+    /* 모바일 토글 버튼 노출 */
+    .menu-toggle-btn {
+        display: block;
+        width: 100%;
+        padding: 8px 12px;
+        font-family: monospace;
+        font-size: 0.9rem;
+        text-align: left;
+        background-color: #f0f0eb;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        margin-bottom: 5px;
+        outline: none;
+    }
+
+    /* 평소에는 사이드바 네비 내용물 숨김 */
+    .sidebar-content {
+        display: none;
+        margin-top: 15px;
+    }
+
+    /* 토글 활성화 시 내용 노출 */
+    .sidebar.menu-open .sidebar-content {
+        display: block;
+    }
+    
+    .sidebar ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .sidebar li {
+        margin-bottom: 0;
+    }
+}
+
+/* -----------------------------------------------------------------
+   인쇄용 미디어 쿼리 (PDF 저장 및 출력을 위한 여백/요소 숨김 최적화)
+   ----------------------------------------------------------------- */
+@media print {
+    body {
+        background-color: #fff !important;
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 11pt;
+        line-height: 1.5;
+    }
+    
+    /* 인쇄 시 감출 레이아웃 구성요소들 */
+    .sidebar, 
+    .menu-toggle-btn, 
+    .toc-box, 
+    .search-container, 
+    .pagination-wrapper, 
+    #back-to-list,
+    .contact-list,
+    footer,
+    hr {
+        display: none !important;
+    }
+    
+    .container {
+        display: block;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .content {
+        display: block;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* 링크는 언더라인 제거 및 텍스트 블랙 고정 */
+    a {
+        color: #000 !important;
+        text-decoration: none !important;
+    }
+    
+    /* blockquote 색상 최적화 */
+    blockquote {
+        background-color: #fff !important;
+        border-left: 3px solid #000 !important;
+        color: #333 !important;
+    }
+    
+    /* 테이블 보더 최적화 */
+    table {
+        border-collapse: collapse !important;
+    }
+    table tr {
+        border-bottom: 1px solid #000 !important;
+    }
+}

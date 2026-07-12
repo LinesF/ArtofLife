@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="오늘 홈페이지 관리를 효율적으로 수행하기 위해 정적 사이트 빌더(build.py)를 도입했다. 왜 빌더를 도입했는가? 매번 새 글을 쓸 때마다 HTML 문서를 복사하고, 목록 테이블을 고쳐 쓰고, 검색 배열을 고치는...">
+    <title>로컬 정적 사이트 빌더의 도입과 자동화 일기 - Art of Life</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <script src="../theme.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 왼쪽 사이드바 네비게이션 -->
+        <nav class="sidebar" aria-label="메인 메뉴">
+            <div class="site-title">
+                <a id="nav-brand" href="../index.html">Art of Life</a>
+            </div>
+            
+            <button id="menu-toggle" class="menu-toggle-btn">Menu ☰</button>
+
+            <div class="sidebar-content">
+                <div class="about-section">
+                    <h2><a id="nav-about-sidebar" href="../about.html">About</a></h2>
+                    <p>일상의 소소한 이야기와 개인적인 관심사를 가볍고 편안하게 기록하는 개인 정원입니다.</p>
+                </div>
+
+                <h2>분류 <a id="search-trigger" href="../search.html" style="font-size: 1rem; text-decoration: none; margin-left: 5px;">🔍</a></h2>
+                <ul>
+                    <li><a id="nav-diary" href="../diary/index.html">📖 일기장</a></li>
+                    <li><a id="nav-notes" href="../notes/index.html">📝 Notes</a></li>
+                    <li><a id="nav-projects" href="../projects/index.html">💻 Projects</a></li>
+                    <li><a id="nav-thoughts" href="../thought-log/index.html">🧠 사색 일지</a></li>
+                </ul>
+
+                <h2>Theme</h2>
+                <div style="font-family: monospace; font-size: 0.85rem; display: flex; gap: 10px; margin-bottom: 20px;">
+                    <a id="theme-light" class="theme-link" href="#" onclick="setTheme('light'); return false;">Light</a>
+                    <a id="theme-sepia" class="theme-link" href="#" onclick="setTheme('sepia'); return false;">Sepia</a>
+                    <a id="theme-dark" class="theme-link" href="#" onclick="setTheme('dark'); return false;">Dark</a>
+                </div>
+
+                <h2>Contact</h2>
+                <ul class="contact-list">
+                    <li>Email: <a id="contact-email" href="mailto:your-email@example.com">email@example.com</a></li>
+                    <li>GitHub: <a id="contact-github" href="https://github.com/your-username" target="_blank">github.com/username</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- 오른쪽 본문 콘텐츠 -->
+        <main class="content">
+            <header>
+    <h1>로컬 정적 사이트 빌더의 도입과 자동화 일기</h1>
+    <div class="date">작성일: 2026년 07월 12일</div>
+</header>
+<article>
+    <p>오늘 홈페이지 관리를 효율적으로 수행하기 위해 <strong>정적 사이트 빌더(build.py)</strong>를 도입했다.</p>
+<h2>왜 빌더를 도입했는가?</h2>
+<p>매번 새 글을 쓸 때마다 HTML 문서를 복사하고, 목록 테이블을 고쳐 쓰고, 검색 배열을 고치는 행위는 매우 원시적이었다.</p>
+<h2>앞으로의 작성 프로세스</h2>
+<p>1. `_posts/` 디렉토리에 마크다운 파일을 만든다.</p>
+<p>2. YAML 설정에 알맞은 카테고리(`일기장`, `Notes`, `Projects`, `사색 일지`)를 선언한다.</p>
+<p>3. 터미널에서 `python build.py`를 실행하여 사이트를 갱신한다.</p>
+<p>이 작은 자동화 도구가 나의 기록 습관을 한층 더 가볍고 편안하게 도울 것이다.</p>
+    <p style="margin-top: 40px;">
+        <a id="back-to-list" href="index.html" style="text-decoration: underline; color: #0000ee;">← 목록으로 돌아가기</a>
+    </p>
+</article>
+            <footer>
+                <p>© 2026 Art of Life. Built with pure HTML & CSS.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

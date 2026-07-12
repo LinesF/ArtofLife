@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Notes 기록을 정돈해 둔 목록 페이지">
+    <title>Notes - Art of Life</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <script src="../theme.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 왼쪽 사이드바 네비게이션 -->
+        <nav class="sidebar" aria-label="메인 메뉴">
+            <div class="site-title">
+                <a id="nav-brand" href="../index.html">Art of Life</a>
+            </div>
+            
+            <button id="menu-toggle" class="menu-toggle-btn">Menu ☰</button>
+
+            <div class="sidebar-content">
+                <div class="about-section">
+                    <h2><a id="nav-about-sidebar" href="../about.html">About</a></h2>
+                    <p>일상의 소소한 이야기와 개인적인 관심사를 가볍고 편안하게 기록하는 개인 정원입니다.</p>
+                </div>
+
+                <h2>분류 <a id="search-trigger" href="../search.html" style="font-size: 1rem; text-decoration: none; margin-left: 5px;">🔍</a></h2>
+                <ul>
+                    <li><a id="nav-diary" href="../diary/index.html">📖 일기장</a></li>
+                    <li><a id="nav-notes" href="../notes/index.html">📝 Notes</a></li>
+                    <li><a id="nav-projects" href="../projects/index.html">💻 Projects</a></li>
+                    <li><a id="nav-thoughts" href="../thought-log/index.html">🧠 사색 일지</a></li>
+                </ul>
+
+                <h2>Theme</h2>
+                <div style="font-family: monospace; font-size: 0.85rem; display: flex; gap: 10px; margin-bottom: 20px;">
+                    <a id="theme-light" class="theme-link" href="#" onclick="setTheme('light'); return false;">Light</a>
+                    <a id="theme-sepia" class="theme-link" href="#" onclick="setTheme('sepia'); return false;">Sepia</a>
+                    <a id="theme-dark" class="theme-link" href="#" onclick="setTheme('dark'); return false;">Dark</a>
+                </div>
+
+                <h2>Contact</h2>
+                <ul class="contact-list">
+                    <li>Email: <a id="contact-email" href="mailto:your-email@example.com">email@example.com</a></li>
+                    <li>GitHub: <a id="contact-github" href="https://github.com/your-username" target="_blank">github.com/username</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- 오른쪽 본문 콘텐츠 -->
+        <main class="content">
+            <header>
+    <h1>Notes</h1>
+    <p>학습하고 배운 기술 지식과 개념들을 정돈해 둔 공간입니다.</p>
+    <div class="date">기록된 게시물 개수: 0개</div>
+</header>
+<article>
+    <h2>글 목록</h2>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px; font-family: monospace;">
+        <thead>
+            <tr style="border-bottom: 2px solid #333; text-align: left;">
+                <th style="padding: 8px 0; width: 120px;">날짜</th>
+                <th style="padding: 8px 0;">제목</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom: 1px solid #ddd;"><td style="padding: 10px 0; color: #888; font-style: italic;" colspan="2">아직 등록된 기록물이 없습니다. _posts 폴더에 새 글을 올려보세요.</td></tr>
+        </tbody>
+    </table>
+</article>
+            <footer>
+                <p>© 2026 Art of Life. Built with pure HTML & CSS.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

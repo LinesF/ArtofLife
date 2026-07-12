@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="가치관, 커리어, 연혁, 사용하는 장비를 한눈에 보여주는 종합 자기소개 페이지">
+    <title>소개 - Art of Life</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="theme.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 왼쪽 사이드바 네비게이션 -->
+        <nav class="sidebar" aria-label="메인 메뉴">
+            <div class="site-title">
+                <a id="nav-brand" href="index.html">Art of Life</a>
+            </div>
+            
+            <button id="menu-toggle" class="menu-toggle-btn">Menu ☰</button>
+
+            <div class="sidebar-content">
+                <div class="about-section">
+                    <h2><a id="nav-about-sidebar" href="about.html">About</a></h2>
+                    <p>일상의 소소한 이야기와 개인적인 관심사를 가볍고 편안하게 기록하는 개인 정원입니다.</p>
+                </div>
+
+                <h2>분류 <a id="search-trigger" href="search.html" style="font-size: 1rem; text-decoration: none; margin-left: 5px;">🔍</a></h2>
+                <ul>
+                    <li><a id="nav-diary" href="diary/index.html">📖 일기장</a></li>
+                    <li><a id="nav-notes" href="notes/index.html">📝 Notes</a></li>
+                    <li><a id="nav-projects" href="projects/index.html">💻 Projects</a></li>
+                    <li><a id="nav-thoughts" href="thought-log/index.html">🧠 사색 일지</a></li>
+                </ul>
+
+                <h2>Theme</h2>
+                <div style="font-family: monospace; font-size: 0.85rem; display: flex; gap: 10px; margin-bottom: 20px;">
+                    <a id="theme-light" class="theme-link" href="#" onclick="setTheme('light'); return false;">Light</a>
+                    <a id="theme-sepia" class="theme-link" href="#" onclick="setTheme('sepia'); return false;">Sepia</a>
+                    <a id="theme-dark" class="theme-link" href="#" onclick="setTheme('dark'); return false;">Dark</a>
+                </div>
+
+                <h2>Contact</h2>
+                <ul class="contact-list">
+                    <li>Email: <a id="contact-email" href="mailto:your-email@example.com">email@example.com</a></li>
+                    <li>GitHub: <a id="contact-github" href="https://github.com/your-username" target="_blank">github.com/username</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- 오른쪽 본문 콘텐츠 -->
+        <main class="content">
+            <header>
+    <h1>자기소개 (About Me)</h1>
+    <p>단순하고 명료한 아날로그의 가치를 지향합니다.</p>
+</header>
+
+<article>
+    <figure style="float: right; margin: 0 0 20px 20px; width: 220px; text-align: center; font-family: monospace; font-size: 0.8rem; color: #666;">
+        <img src="about/classic_desk.png" alt="클래식 책상 책화" style="width: 100%; border: 1px solid #aaa; padding: 3px; background-color: #fff;">
+        <figcaption>필름 톤으로 렌더링된 책상 삽화</figcaption>
+    </figure>
+
+    <p>안녕하세요. 이곳은 저의 소소한 생각들과 하루하루의 일상, 그리고 깊어가는 관심사들을 모아두는 정적 웹사이트입니다. 화려한 장식 없이 단순한 텍스트로 가득 찬 이 공간처럼, 저 역시 본질적이고 명료한 것을 좋아합니다.</p>
+
+    <h2>역할 및 관심사</h2>
+    <ul>
+        <li><strong>역할</strong>: 소프트웨어 엔지니어 / 테크니컬 라이터</li>
+        <li><strong>관심사</strong>: 웹 표준, 정적 사이트 아키텍처, 정보 설계, 미니멀리즘</li>
+        <li><strong>좋아하는 것</strong>: 차분한 음악 듣기, 책 읽기, 사소한 일상의 기록, 조용한 산책</li>
+    </ul>
+
+    <h2>나의 가치관</h2>
+    <ul>
+        <li><strong>덜어내는 삶</strong>: 불필요한 노이즈와 치장을 배제하고 본질에 집중합니다.</li>
+        <li><strong>꾸준한 아카이빙</strong>: 거창한 결과물보다 매일의 작은 생각을 쌓는 시간이 중요합니다.</li>
+        <li><strong>자신만의 속도</strong>: 인터넷 세상의 빠른 유행에 휩쓸리지 않고 차분한 아날로그 템포를 지향합니다.</li>
+    </ul>
+
+    <h2>커리어 & 기술 스택</h2>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 15px; font-family: monospace; font-size: 0.9rem;">
+        <thead>
+            <tr style="border-bottom: 2px solid #333; text-align: left;">
+                <th style="padding: 6px 0;">기간</th>
+                <th style="padding: 6px 0;">소속 및 프로젝트</th>
+                <th style="padding: 6px 0;">주요 내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 6px 0;">2024.03 - 현재</td>
+                <td style="padding: 6px 0;">개인 프로젝트 & 프리랜서</td>
+                <td style="padding: 6px 0;">정적 웹 빌더 개발, 타이포그래피 연구</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 6px 0;">2021.01 - 2024.02</td>
+                <td style="padding: 6px 0;">클라우드 솔루션사</td>
+                <td style="padding: 6px 0;">주니어 웹 개발자, UI/UX 접근성 개선</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>연혁 (Timeline)</h2>
+    <ul style="list-style-type: none; padding-left: 0; font-family: monospace;">
+        <li style="margin-bottom: 10px; border-left: 2px solid #ccc; padding-left: 15px;">
+            <strong>2026년 7월</strong>: 개인 정적 홈페이지 개설 및 운영 시스템 완비
+        </li>
+        <li style="margin-bottom: 10px; border-left: 2px solid #ccc; padding-left: 15px;">
+            <strong>2024년 3월</strong>: 정적 웹 기술과 미니멀 인터페이스 디자인 독립 학습 개시
+        </li>
+        <li style="margin-bottom: 10px; border-left: 2px solid #ccc; padding-left: 15px;">
+            <strong>2021년 1월</strong>: 소프트웨어 프로그래밍 첫 입문
+        </li>
+        <li style="margin-bottom: 10px; border-left: 2px solid #ccc; padding-left: 15px;">
+            <strong>2018년 9월</strong>: 기록하고 아카이빙하는 사색 글쓰기 습관 시작
+        </li>
+    </ul>
+
+    <h2>사용하는 장비 (Hardware & Software)</h2>
+    <ul>
+        <li><strong>하드웨어</strong>: 맥북 에어(MacBook Air), HHKB Professional Classic 키보드, 몰스킨 플레인 노트</li>
+        <li><strong>소프트웨어</strong>: VS Code, Vim 에디터, Obsidian (옵시디언), Firefox 개발자 에디션</li>
+        <li><strong>기타</strong>: 드립 커피 (예가체프 아이스), 차가운 우롱차</li>
+    </ul>
+</article>
+
+            <footer>
+                <p>© 2026 Art of Life. Built with pure HTML & CSS.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

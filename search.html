@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="코사인 유사도 분석 기반의 정밀 본문 검색 및 카테고리/기간별 필터 제공">
+    <title>검색 - Art of Life</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="theme.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 왼쪽 사이드바 네비게이션 -->
+        <nav class="sidebar" aria-label="메인 메뉴">
+            <div class="site-title">
+                <a id="nav-brand" href="index.html">Art of Life</a>
+            </div>
+            
+            <button id="menu-toggle" class="menu-toggle-btn">Menu ☰</button>
+
+            <div class="sidebar-content">
+                <div class="about-section">
+                    <h2><a id="nav-about-sidebar" href="about.html">About</a></h2>
+                    <p>일상의 소소한 이야기와 개인적인 관심사를 가볍고 편안하게 기록하는 개인 정원입니다.</p>
+                </div>
+
+                <h2>분류 <a id="search-trigger" href="search.html" style="font-size: 1rem; text-decoration: none; margin-left: 5px;">🔍</a></h2>
+                <ul>
+                    <li><a id="nav-diary" href="diary/index.html">📖 일기장</a></li>
+                    <li><a id="nav-notes" href="notes/index.html">📝 Notes</a></li>
+                    <li><a id="nav-projects" href="projects/index.html">💻 Projects</a></li>
+                    <li><a id="nav-thoughts" href="thought-log/index.html">🧠 사색 일지</a></li>
+                </ul>
+
+                <h2>Theme</h2>
+                <div style="font-family: monospace; font-size: 0.85rem; display: flex; gap: 10px; margin-bottom: 20px;">
+                    <a id="theme-light" class="theme-link" href="#" onclick="setTheme('light'); return false;">Light</a>
+                    <a id="theme-sepia" class="theme-link" href="#" onclick="setTheme('sepia'); return false;">Sepia</a>
+                    <a id="theme-dark" class="theme-link" href="#" onclick="setTheme('dark'); return false;">Dark</a>
+                </div>
+
+                <h2>Contact</h2>
+                <ul class="contact-list">
+                    <li>Email: <a id="contact-email" href="mailto:your-email@example.com">email@example.com</a></li>
+                    <li>GitHub: <a id="contact-github" href="https://github.com/your-username" target="_blank">github.com/username</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- 오른쪽 본문 콘텐츠 -->
+        <main class="content">
+            <header>
+    <h1>통합 검색 (Search)</h1>
+    <p>단어 코사인 유사도 분석을 통해 본문 내용을 검색합니다. 카테고리와 연도로 결과를 필터링해 보세요.</p>
+</header>
+
+<article class="search-container">
+    <!-- 검색 인풋 영역 -->
+    <div class="search-input-wrapper">
+        <input type="text" id="search-input" placeholder="검색어 또는 문장을 입력해 보세요 (예: 정적 웹, 가치관)..." aria-label="검색어 입력">
+        <button id="search-btn">검색</button>
+    </div>
+
+    <!-- 필터 패널 영역 (연도 필터를 더블 레인지 슬라이더로 변경) -->
+    <div class="search-filters">
+        <div class="filter-group">
+            <span class="filter-group-title">분류 필터</span>
+            <label class="filter-label"><input type="checkbox" class="filter-category" value="일기장" checked> 일기장</label>
+            <label class="filter-label"><input type="checkbox" class="filter-category" value="Notes" checked> Notes</label>
+            <label class="filter-label"><input type="checkbox" class="filter-category" value="Projects" checked> Projects</label>
+            <label class="filter-label"><input type="checkbox" class="filter-category" value="사색 일지" checked> 사색 일지</label>
+            <label class="filter-label"><input type="checkbox" class="filter-category" value="소개" checked> 소개문</label>
+        </div>
+        <div class="filter-group" style="margin-top: 10px; border-top: 1px dotted #eee; padding-top: 10px;">
+            <span class="filter-group-title">연도 필터</span>
+            <div class="range-slider-container">
+                <div class="slider-track" id="slider-track"></div>
+                <input type="range" id="slider-min" min="2024" max="2026" value="2024" step="1" aria-label="시작 연도">
+                <input type="range" id="slider-max" min="2024" max="2026" value="2026" step="1" aria-label="종료 연도">
+            </div>
+            <span id="range-value-display" style="font-family: monospace; font-size: 0.9rem; margin-left: 15px; font-weight: bold; color: #222;">2024년 ~ 2026년</span>
+        </div>
+    </div>
+
+    <!-- 검색 정보 바 -->
+    <div id="search-meta-bar" style="font-family: monospace; font-size: 0.9rem; color: #555; border-bottom: 1px solid #aaa; padding-bottom: 8px; margin-bottom: 15px;">
+        검색어를 입력해 주세요.
+    </div>
+
+    <!-- 검색 결과 리스트 -->
+    <div id="search-results" class="search-results-list">
+        <!-- JS에 의해 동적으로 검색 결과 렌더링 -->
+    </div>
+
+    <!-- 페이지네이션 하단 영역 -->
+    <div id="pagination-wrapper" class="pagination-wrapper">
+        <!-- JS에 의해 동적으로 페이지 번호 생성 -->
+    </div>
+</article>
+
+<!-- 검색엔진 코사인 유사도 분석 스크립트 -->
+<script>
+    // 로컬 file:// 보안 에러(CORS) 방지를 위해 검색 DB를 인라인 변수로 정의
+    const SEARCH_DATA = /*DATA_START*/[
+    {
+        "url": "index.html",
+        "title": "Art of Life - 홈 소개",
+        "category": "소개",
+        "date": "2026-07-09",
+        "content": "환영합니다 이곳은 저의 소소한 일상 관심사 흘러가는 생각들을 차분히 적어두는 개인 홈페이지입니다 화려한 장식이나 복잡한 기능 없이 오직 텍스트와 단순한 구조로만 구성된 클래식한 공간입니다 지나치게 빠르고 시끄러운 인터넷 세상 속에서 잠시 쉬어가는 마음으로 글을 쓰고 정리하고 있습니다 일상 일기 하루 동안 겪었던 소소한 이야기나 감정들 관심사 독서 음악 프로그래밍 등 요즘 깊게 들여다보고 있는 것들에 대한 생각 단상 길을 걷다 문득 든 생각이나 짧은 메모들 단순함은 궁극의 정교함이다 레오나르도 다빈치"
+    },
+    {
+        "url": "about.html",
+        "title": "자기소개 (About Me)",
+        "category": "소개",
+        "date": "2026-07-11",
+        "content": "안녕하세요 이곳은 저의 소소한 생각들과 하루하루의 일상 그리고 깊어가는 관심사들을 모아두는 정적 웹사이트입니다 화려한 장식 없이 단순한 텍스트로 가득 찬 이 공간처럼 저 역시 본질적이고 명료한 것을 좋아합니다 역할 소프트웨어 엔지니어 테크니컬 라이터 관심사 웹 표준 정적 사이트 아키텍처 정보 설계 미니멀리즘 좋아하는 것 차분한 음악 듣기 책 읽기 사소한 일상의 기록 조용한 산책 가치관 덜어내는 삶 꾸준한 아카이빙 자신만의 속도 커리어 기술 개인 프로젝트 프리랜서 클라우드 솔루션사 주니어 개발자 프론트엔드 백엔드 유지보수 웹 접근성 개선 Git 마크다운 리눅스 Vim 에디터 연혁 2026년 7월 홈페이지 개설 2024년 3월 정적 웹 기술과 미니멀 인터페이스 디자인 공부 2021년 1월 프로그래밍 입문 2018년 9월 글쓰기 습관 장비 하드웨어 맥북 에어 맥북에어 HHKB 키보드 해피해킹 프로페셔널 클래식 몰스킨 플레인 노트 소프트웨어 비주얼 스튜디오 코드 VS Code Vim 옴니아웃라이너 Obsidian 옵시디언 파이어폭스 개발자 에디션 드립 커피 예가체프 아이스 우롱차"
+    },
+    {
+        "url": "diary/2026-07-12-example.html",
+        "title": "로컬 정적 사이트 빌더의 도입과 자동화 일기",
+        "category": "일기장",
+        "date": "2026-07-12",
+        "content": "오늘 홈페이지 관리를 효율적으로 수행하기 위해 정적 사이트 빌더(build.py)를 도입했다. 왜 빌더를 도입했는가? 매번 새 글을 쓸 때마다 HTML 문서를 복사하고, 목록 테이블을 고쳐 쓰고, 검색 배열을 고치는 행위는 매우 원시적이었다. 앞으로의 작성 프로세스 1. `_posts/` 디렉토리에 마크다운 파일을 만든다. 2. YAML 설정에 알맞은 카테고리(`일기장`, `Notes`, `Projects`, `사색 일지`)를 선언한다. 3. 터미널에서 `python build.py`를 실행하여 사이트를 갱신한다. 이 작은 자동화 도구가 나의 기록 습관을 한층 더 가볍고 편안하게 도울 것이다."
+    }
+]/*DATA_END*/;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchInput = document.getElementById("search-input");
+        const searchBtn = document.getElementById("search-btn");
+        const resultsContainer = document.getElementById("search-results");
+        const paginationWrapper = document.getElementById("pagination-wrapper");
+        const metaBar = document.getElementById("search-meta-bar");
+
+        // 더블 슬라이더 노드 수집
+        const sliderMin = document.getElementById("slider-min");
+        const sliderMax = document.getElementById("slider-max");
+        const sliderTrack = document.getElementById("slider-track");
+        const rangeDisplay = document.getElementById("range-value-display");
+
+        // 게시글 데이터로부터 동적으로 연도 범위(최소/최대) 산출
+        const years = SEARCH_DATA.map(d => parseInt(d.date.substring(0, 4))).filter(y => !isNaN(y));
+        let minLimit = years.length > 0 ? Math.min(...years) : 2026;
+        let maxLimit = years.length > 0 ? Math.max(...years) : 2026;
+
+        // 최소 1년 기준의 조작 범위를 보장 (최소/최대 연도가 같은 경우 예외 보정)
+        if (minLimit === maxLimit) {
+            minLimit = maxLimit - 1;
+        }
+
+        // 슬라이더 요소의 작동 한계 설정 갱신
+        sliderMin.min = minLimit;
+        sliderMin.max = maxLimit;
+        sliderMin.value = minLimit;
+        
+        sliderMax.min = minLimit;
+        sliderMax.max = maxLimit;
+        sliderMax.value = maxLimit;
+
+        const ITEMS_PER_PAGE = 3; 
+        let currentPage = 1;
+        let currentFilteredResults = [];
+
+        // 1. 더블 레인지 슬라이더 트랙 동적 업데이트 함수 (충돌 제어는 이벤트 리스너에서 직접 개별 처리)
+        function updateSliderTrack() {
+            const minVal = parseInt(sliderMin.value);
+            const maxVal = parseInt(sliderMax.value);
+
+            // 진행바 그라데이션 채색 비율 산출
+            const minPercent = ((minVal - minLimit) / (maxLimit - minLimit)) * 100;
+            const maxPercent = ((maxVal - minLimit) / (maxLimit - minLimit)) * 100;
+            
+            // 선택된 안쪽 공간만 어두운 톤(#222)으로, 양 끝 외곽은 밝은 회색(#ddd) 처리
+            sliderTrack.style.background = `linear-gradient(to right, #ddd ${minPercent}%, #222 ${minPercent}%, #222 ${maxPercent}%, #ddd ${maxPercent}%)`;
+
+            // 텍스트 디스플레이 갱신
+            rangeDisplay.textContent = `${minVal}년 ~ ${maxVal}년`;
+        }
+
+        // 슬라이더 조작 시 궤적과 검색 실시간 동기화 및 개별 충돌/z-index 방지
+        sliderMin.addEventListener("input", () => {
+            const minVal = parseInt(sliderMin.value);
+            const maxVal = parseInt(sliderMax.value);
+
+            // 현재 조작 중인 최소 슬라이더를 z-index 최상위로 올림
+            sliderMin.style.zIndex = "3";
+            sliderMax.style.zIndex = "2";
+
+            // 최소 조절점이 최대 조절점을 추월하지 않도록 제어
+            if (minVal > maxVal) {
+                sliderMin.value = maxVal;
+            }
+
+            updateSliderTrack();
+            executeSearch();
+        });
+
+        sliderMax.addEventListener("input", () => {
+            const minVal = parseInt(sliderMin.value);
+            const maxVal = parseInt(sliderMax.value);
+
+            // 현재 조작 중인 최대 슬라이더를 z-index 최상위로 올림
+            sliderMax.style.zIndex = "3";
+            sliderMin.style.zIndex = "2";
+
+            // 최대 조절점이 최소 조절점을 역추월하지 않도록 제어
+            if (maxVal < minVal) {
+                sliderMax.value = minVal;
+            }
+
+            updateSliderTrack();
+            executeSearch();
+        });
+
+        // 초기 궤적 컬러 정돈
+        updateSliderTrack();
+
+        // 간단한 토크나이저 (조사 제거 보정)
+        function tokenize(text) {
+            if (!text) return [];
+            const rawTokens = text.toLowerCase()
+                .replace(/[^a-zA-Z0-9가-힣\s]/g, "")
+                .split(/\s+/);
+            
+            return rawTokens.map(token => {
+                if (token.length > 2) {
+                    return token.replace(/(은|는|이|가|을|를|에|의|로|와|과|하다)$/, "");
+                }
+                return token;
+            }).filter(t => t.length > 0);
+        }
+
+        // 단어 빈도수 구하기
+        function getTermFrequency(tokens) {
+            const tf = {};
+            tokens.forEach(token => {
+                tf[token] = (tf[token] || 0) + 1;
+            });
+            return tf;
+        }
+
+        // 코사인 유사도 계산
+        function calculateCosineSimilarity(queryTokens, docTokens) {
+            if (queryTokens.length === 0 || docTokens.length === 0) return 0;
+
+            const queryTf = getTermFrequency(queryTokens);
+            const docTf = getTermFrequency(docTokens);
+
+            const allWords = new Set([...Object.keys(queryTf), ...Object.keys(docTf)]);
+
+            let dotProduct = 0;
+            let queryMagSq = 0;
+            let docMagSq = 0;
+
+            allWords.forEach(word => {
+                const qCount = queryTf[word] || 0;
+                const dCount = docTf[word] || 0;
+
+                dotProduct += qCount * dCount;
+                queryMagSq += qCount * qCount;
+                docMagSq += dCount * dCount;
+            });
+
+            if (queryMagSq === 0 || docMagSq === 0) return 0;
+            return dotProduct / (Math.sqrt(queryMagSq) * Math.sqrt(docMagSq));
+        }
+
+        // 스니펫 생성
+        function getSnippet(content, queryText) {
+            if (!queryText) return content.substring(0, 150) + "...";
+            
+            const words = queryText.split(/\s+/).filter(w => w.length > 0);
+            let bestIdx = 0;
+            let maxMatch = 0;
+
+            for (let i = 0; i < content.length - 120; i += 20) {
+                const subText = content.substring(i, i + 150).toLowerCase();
+                let matchCount = 0;
+                words.forEach(word => {
+                    if (subText.includes(word.toLowerCase())) {
+                        matchCount++;
+                    }
+                });
+                if (matchCount > maxMatch) {
+                    maxMatch = matchCount;
+                    bestIdx = i;
+                }
+            }
+            
+            const start = Math.max(0, bestIdx - 30);
+            const end = Math.min(content.length, start + 160);
+            let snippet = (start > 0 ? "..." : "") + content.substring(start, end);
+            if (end < content.length) snippet += "...";
+            
+            words.forEach(word => {
+                const regex = new RegExp(`(${word})`, 'gi');
+                snippet = snippet.replace(regex, `<mark style="background-color: #ffeb3b; padding: 1px 3px; border-radius: 2px; color: #000;">$1</mark>`);
+            });
+            return snippet;
+        }
+
+        // 검색 실행 및 필터 연동
+        function executeSearch() {
+            const queryText = searchInput.value.trim();
+            const queryTokens = tokenize(queryText);
+
+            const selectedCategories = Array.from(document.querySelectorAll(".filter-category:checked"))
+                .map(cb => cb.value);
+
+            const minYear = parseInt(sliderMin.value);
+            const maxYear = parseInt(sliderMax.value);
+
+            let results = [];
+
+            if (queryText === "") {
+                results = SEARCH_DATA.filter(doc => {
+                    const docYear = parseInt(doc.date.substring(0, 4));
+                    return selectedCategories.includes(doc.category) && 
+                           docYear >= minYear && 
+                           docYear <= maxYear;
+                }).map(doc => ({
+                    doc: doc,
+                    similarity: 0
+                })).sort((a, b) => new Date(b.doc.date) - new Date(a.doc.date));
+            } else {
+                SEARCH_DATA.forEach(doc => {
+                    const docYear = parseInt(doc.date.substring(0, 4));
+                    if (selectedCategories.includes(doc.category) && 
+                        docYear >= minYear && 
+                        docYear <= maxYear) {
+                        
+                        const docTokens = tokenize(doc.title + " " + doc.content);
+                        const sim = calculateCosineSimilarity(queryTokens, docTokens);
+                        
+                        let bonus = 0;
+                        queryTokens.forEach(token => {
+                            if (doc.title.toLowerCase().includes(token.toLowerCase())) bonus += 0.15;
+                        });
+
+                        const finalSim = Math.min(1.0, sim + bonus);
+
+                        if (finalSim > 0.01) {
+                            results.push({
+                                doc: doc,
+                                similarity: finalSim
+                            });
+                        }
+                    }
+                });
+
+                results.sort((a, b) => b.similarity - a.similarity);
+            }
+
+            currentFilteredResults = results;
+            currentPage = 1; 
+            renderResults();
+        }
+
+        // 결과 렌더링
+        function renderResults() {
+            resultsContainer.innerHTML = "";
+            paginationWrapper.innerHTML = "";
+
+            const totalResults = currentFilteredResults.length;
+            const queryText = searchInput.value.trim();
+
+            if (queryText === "") {
+                metaBar.textContent = `전체 목록 탐색 모드 (필터 부합 글: 총 ${totalResults}개)`;
+            } else {
+                metaBar.textContent = `"${queryText}" 검색 결과: 유사 연관 글 ${totalResults}개 매치 완료`;
+            }
+
+            if (totalResults === 0) {
+                resultsContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px 0; color: #888; border: 1px dashed #ccc; background-color: #fafafa; font-family: monospace;">
+                        지정된 기간(${sliderMin.value}년~${sliderMax.value}년) 및 조건에 일치하는 결과가 없습니다.<br>필터를 넓히거나 다른 키워드를 입력해 보세요.
+                    </div>
+                `;
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalResults);
+            const pageItems = currentFilteredResults.slice(startIndex, endIndex);
+
+            const listEl = document.createElement("div");
+            pageItems.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "search-result-card";
+
+                const meta = document.createElement("div");
+                meta.className = "search-result-meta";
+                
+                const simPercent = Math.round(item.similarity * 100);
+                const similarityBadge = item.similarity > 0 
+                    ? `<span class="search-result-similarity">정확도 ${simPercent}%</span>` 
+                    : '';
+
+                meta.innerHTML = `
+                    <span>📁 ${item.doc.category}</span>
+                    <span>📅 ${item.doc.date}</span>
+                    ${similarityBadge}
+                `;
+
+                const title = document.createElement("h2");
+                title.className = "search-result-title";
+                title.innerHTML = `<a href="${item.doc.url}">${item.doc.title}</a>`;
+
+                const snippet = document.createElement("p");
+                snippet.className = "search-result-snippet";
+                snippet.innerHTML = getSnippet(item.doc.content, queryText);
+
+                card.appendChild(meta);
+                card.appendChild(title);
+                card.appendChild(snippet);
+                listEl.appendChild(card);
+            });
+            resultsContainer.appendChild(listEl);
+
+            const totalPages = Math.ceil(totalResults / ITEMS_PER_PAGE);
+            if (totalPages > 1) {
+                const prevBtn = document.createElement("button");
+                prevBtn.className = `pagination-btn ${currentPage === 1 ? 'disabled' : ''}`;
+                prevBtn.textContent = "< 이전";
+                prevBtn.disabled = (currentPage === 1);
+                prevBtn.addEventListener("click", () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderResults();
+                        window.scrollTo(0, 0);
+                    }
+                });
+                paginationWrapper.appendChild(prevBtn);
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageBtn = document.createElement("button");
+                    pageBtn.className = `pagination-btn ${currentPage === i ? 'active' : ''}`;
+                    pageBtn.textContent = i;
+                    pageBtn.addEventListener("click", () => {
+                        if (currentPage !== i) {
+                            currentPage = i;
+                            renderResults();
+                            window.scrollTo(0, 0);
+                        }
+                    });
+                    paginationWrapper.appendChild(pageBtn);
+                }
+
+                const nextBtn = document.createElement("button");
+                nextBtn.className = `pagination-btn ${currentPage === totalPages ? 'disabled' : ''}`;
+                nextBtn.textContent = "다음 >";
+                nextBtn.disabled = (currentPage === totalPages);
+                nextBtn.addEventListener("click", () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderResults();
+                        window.scrollTo(0, 0);
+                    }
+                });
+                paginationWrapper.appendChild(nextBtn);
+            }
+        }
+
+        searchBtn.addEventListener("click", executeSearch);
+        searchInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                executeSearch();
+            }
+        });
+
+        document.querySelectorAll(".filter-category").forEach(cb => {
+            cb.addEventListener("change", executeSearch);
+        });
+
+        executeSearch();
+    });
+</script>
+
+            <footer>
+                <p>© 2026 Art of Life. Built with pure HTML & CSS.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="일상의 일기와 관심사, 생각을 기록하는 클래식한 개인 홈페이지">
+    <title>홈 - Art of Life</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="theme.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 왼쪽 사이드바 네비게이션 -->
+        <nav class="sidebar" aria-label="메인 메뉴">
+            <div class="site-title">
+                <a id="nav-brand" href="index.html">Art of Life</a>
+            </div>
+            
+            <button id="menu-toggle" class="menu-toggle-btn">Menu ☰</button>
+
+            <div class="sidebar-content">
+                <div class="about-section">
+                    <h2><a id="nav-about-sidebar" href="about.html">About</a></h2>
+                    <p>일상의 소소한 이야기와 개인적인 관심사를 가볍고 편안하게 기록하는 개인 정원입니다.</p>
+                </div>
+
+                <h2>분류 <a id="search-trigger" href="search.html" style="font-size: 1rem; text-decoration: none; margin-left: 5px;">🔍</a></h2>
+                <ul>
+                    <li><a id="nav-diary" href="diary/index.html">📖 일기장</a></li>
+                    <li><a id="nav-notes" href="notes/index.html">📝 Notes</a></li>
+                    <li><a id="nav-projects" href="projects/index.html">💻 Projects</a></li>
+                    <li><a id="nav-thoughts" href="thought-log/index.html">🧠 사색 일지</a></li>
+                </ul>
+
+                <h2>Theme</h2>
+                <div style="font-family: monospace; font-size: 0.85rem; display: flex; gap: 10px; margin-bottom: 20px;">
+                    <a id="theme-light" class="theme-link" href="#" onclick="setTheme('light'); return false;">Light</a>
+                    <a id="theme-sepia" class="theme-link" href="#" onclick="setTheme('sepia'); return false;">Sepia</a>
+                    <a id="theme-dark" class="theme-link" href="#" onclick="setTheme('dark'); return false;">Dark</a>
+                </div>
+
+                <h2>Contact</h2>
+                <ul class="contact-list">
+                    <li>Email: <a id="contact-email" href="mailto:your-email@example.com">email@example.com</a></li>
+                    <li>GitHub: <a id="contact-github" href="https://github.com/your-username" target="_blank">github.com/username</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- 오른쪽 본문 콘텐츠 -->
+        <main class="content">
+            <header>
+    <h1>일상의 기록</h1>
+    <p>오래된 종이책을 읽듯, 조용하고 차분하게 생각을 나누는 정원입니다.</p>
+</header>
+
+<article>
+    <div class="intro-box">
+        <p>환영합니다. 이곳은 저의 소소한 일상, 관심사, 흘러가는 생각들을 차분히 적어두는 개인 홈페이지입니다.</p>
+        <p>화려한 장식이나 복잡한 기능 없이, 오직 텍스트와 단순한 구조로만 구성된 클래식한 공간입니다. 지나치게 빠르고 시끄러운 인터넷 세상 속에서 잠시 쉬어가는 마음으로 글을 쓰고 정리하고 있습니다.</p>
+    </div>
+    
+    <h2>최근 관심사</h2>
+    <ul>
+        <li><strong>일상 일기</strong>: 하루 동안 겪었던 소소한 이야기나 감정들</li>
+        <li><strong>관심사 아카이브</strong>: 독서, 음악, 그리고 프로그래밍 등 요즘 깊게 들여다보고 있는 것들에 대한 생각</li>
+        <li><strong>사색 단상</strong>: 길을 걷다 문득 든 생각이나 짧은 메모들</li>
+    </ul>
+    
+    <blockquote>
+        "단순함은 궁극의 정교함이다." <br>
+        — 레오나르도 다빈치
+    </blockquote>
+</article>
+
+            <footer>
+                <p>© 2026 Art of Life. Built with pure HTML & CSS.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
