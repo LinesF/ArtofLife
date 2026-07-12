@@ -11,26 +11,48 @@ CATEGORY_MAP = {
     "사색 일지": "thought-log"
 }
 
-# 깃허브 Pages 퍼블리시 도메인 명시
-SITE_DOMAIN = "https://linesf.github.io/ArtofLife"
+# -----------------------------------------------------------------
+# 환경설정 파일(config.json) 로드
+# -----------------------------------------------------------------
+CONFIG_FILE = "config.json"
+if os.path.exists(CONFIG_FILE):
+    with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
+        config = json.load(f)
+else:
+    # 기본값 정의
+    config = {
+        "site_title": "Art of Life",
+        "site_description": "일상의 소소한 이야기와 개인적인 관심사를 가볍고 편안하게 기록하는 개인 정원입니다.",
+        "favicon_path": "favicon.png",
+        "site_domain": "https://linesf.github.io/ArtofLife",
+        "contact_email": "email@example.com",
+        "contact_github": "https://github.com/username",
+        "index_body": "<h1>홈 소개가 들어갈 자리</h1>",
+        "about_body": "<h1>소개문이 들어갈 자리</h1>"
+    }
 
 # -----------------------------------------------------------------
 # 단일 공통 HTML 레이아웃 래퍼 함수 (파비콘 및 공통 구조 일괄 제어)
 # -----------------------------------------------------------------
 def render_html_layout(title, content, depth=0, description=""):
-    # depth에 따른 상대경로 셋팅
     rel = "../" * depth
     
-    # 3대 테마(Light, Sepia, Dark), 파비콘, 모바일 토글 텍스트 버튼이 내장된 완성도 높은 템플릿
+    # config.json에서 로드한 설정을 적용
+    site_title = config.get("site_title", "Art of Life")
+    site_description = config.get("site_description", "개인 홈페이지")
+    favicon_path = config.get("favicon_path", "favicon.png")
+    contact_email = config.get("contact_email", "email@example.com")
+    contact_github = config.get("contact_github", "https://github.com")
+
     html = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{description if description else title + ' - Art of Life'}">
-    <title>{title} - Art of Life</title>
+    <meta name="description" content="{description if description else title + ' - ' + site_title}">
+    <title>{title} - {site_title}</title>
     <link rel="stylesheet" href="{rel}style.css">
-    <link rel="icon" type="image/png" href="{rel}favicon.png">
+    <link rel="icon" type="image/png" href="{rel}{favicon_path}">
     <script src="{rel}theme.js"></script>
 </head>
 <body>
@@ -38,7 +60,7 @@ def render_html_layout(title, content, depth=0, description=""):
         <!-- 왼쪽 사이드바 네비게이션 -->
         <nav class="sidebar" aria-label="메인 메뉴">
             <div class="site-title">
-                <a id="nav-brand" href="{rel}index.html">Art of Life</a>
+                <a id="nav-brand" href="{rel}index.html">{site_title}</a>
             </div>
             
             <button id="menu-toggle" class="menu-toggle-btn">Menu ☰</button>
@@ -46,7 +68,7 @@ def render_html_layout(title, content, depth=0, description=""):
             <div class="sidebar-content">
                 <div class="about-section">
                     <h2><a id="nav-about-sidebar" href="{rel}about.html">About</a></h2>
-                    <p>일상의 소소한 이야기와 개인적인 관심사를 가볍고 편안하게 기록하는 개인 정원입니다.</p>
+                    <p>{site_description}</p>
                 </div>
 
                 <h2>분류 <a id="search-trigger" href="{rel}search.html" style="font-size: 1rem; text-decoration: none; margin-left: 5px;">🔍</a></h2>
@@ -66,8 +88,8 @@ def render_html_layout(title, content, depth=0, description=""):
 
                 <h2>Contact</h2>
                 <ul class="contact-list">
-                    <li>Email: <a id="contact-email" href="mailto:your-email@example.com">email@example.com</a></li>
-                    <li>GitHub: <a id="contact-github" href="https://github.com/your-username" target="_blank">github.com/username</a></li>
+                    <li>Email: <a id="contact-email" href="mailto:{contact_email}">{contact_email}</a></li>
+                    <li>GitHub: <a id="contact-github" href="{contact_github}" target="_blank">{contact_github.replace('https://', '')}</a></li>
                 </ul>
             </div>
         </nav>
@@ -76,7 +98,7 @@ def render_html_layout(title, content, depth=0, description=""):
         <main class="content">
             {content}
             <footer>
-                <p>© 2026 Art of Life. Built with pure HTML & CSS.</p>
+                <p>© 2026 {site_title}. Built with pure HTML & CSS.</p>
             </footer>
         </main>
     </div>
@@ -84,112 +106,6 @@ def render_html_layout(title, content, depth=0, description=""):
 </html>
 """
     return html
-
-# -----------------------------------------------------------------
-# 1. 인덱스(index.html) 정적 바디 콘텐츠 정의
-# -----------------------------------------------------------------
-INDEX_BODY = """<header>
-    <h1>일상의 기록</h1>
-    <p>오래된 종이책을 읽듯, 조용하고 차분하게 생각을 나누는 정원입니다.</p>
-</header>
-
-<article>
-    <div class="intro-box">
-        <p>환영합니다. 이곳은 저의 소소한 일상, 관심사, 흘러가는 생각들을 차분히 적어두는 개인 홈페이지입니다.</p>
-        <p>화려한 장식이나 복잡한 기능 없이, 오직 텍스트와 단순한 구조로만 구성된 클래식한 공간입니다. 지나치게 빠르고 시끄러운 인터넷 세상 속에서 잠시 쉬어가는 마음으로 글을 쓰고 정리하고 있습니다.</p>
-    </div>
-    
-    <h2>최근 관심사</h2>
-    <ul>
-        <li><strong>일상 일기</strong>: 하루 동안 겪었던 소소한 이야기나 감정들</li>
-        <li><strong>관심사 아카이브</strong>: 독서, 음악, 그리고 프로그래밍 등 요즘 깊게 들여다보고 있는 것들에 대한 생각</li>
-        <li><strong>사색 단상</strong>: 길을 걷다 문득 든 생각이나 짧은 메모들</li>
-    </ul>
-    
-    <blockquote>
-        "단순함은 궁극의 정교함이다." <br>
-        — 레오나르도 다빈치
-    </blockquote>
-</article>
-"""
-
-# -----------------------------------------------------------------
-# 2. 자기소개(about.html) 정적 바디 콘텐츠 정의
-# -----------------------------------------------------------------
-ABOUT_BODY = """<header>
-    <h1>자기소개 (About Me)</h1>
-    <p>단순하고 명료한 아날로그의 가치를 지향합니다.</p>
-</header>
-
-<article>
-    <figure style="float: right; margin: 0 0 20px 20px; width: 220px; text-align: center; font-family: monospace; font-size: 0.8rem; color: #666;">
-        <img src="about/classic_desk.png" alt="클래식 책상 책화" style="width: 100%; border: 1px solid #aaa; padding: 3px; background-color: #fff;">
-        <figcaption>필름 톤으로 렌더링된 책상 삽화</figcaption>
-    </figure>
-
-    <p>안녕하세요. 이곳은 저의 소소한 생각들과 하루하루의 일상, 그리고 깊어가는 관심사들을 모아두는 정적 웹사이트입니다. 화려한 장식 없이 단순한 텍스트로 가득 찬 이 공간처럼, 저 역시 본질적이고 명료한 것을 좋아합니다.</p>
-
-    <h2>역할 및 관심사</h2>
-    <ul>
-        <li><strong>역할</strong>: 소프트웨어 엔지니어 / 테크니컬 라이터</li>
-        <li><strong>관심사</strong>: 웹 표준, 정적 사이트 아키텍처, 정보 설계, 미니멀리즘</li>
-        <li><strong>좋아하는 것</strong>: 차분한 음악 듣기, 책 읽기, 사소한 일상의 기록, 조용한 산책</li>
-    </ul>
-
-    <h2>나의 가치관</h2>
-    <ul>
-        <li><strong>덜어내는 삶</strong>: 불필요한 노이즈와 치장을 배제하고 본질에 집중합니다.</li>
-        <li><strong>꾸준한 아카이빙</strong>: 거창한 결과물보다 매일의 작은 생각을 쌓는 시간이 중요합니다.</li>
-        <li><strong>자신만의 속도</strong>: 인터넷 세상의 빠른 유행에 휩쓸리지 않고 차분한 아날로그 템포를 지향합니다.</li>
-    </ul>
-
-    <h2>커리어 & 기술 스택</h2>
-    <table style="width: 100%; border-collapse: collapse; margin-top: 15px; font-family: monospace; font-size: 0.9rem;">
-        <thead>
-            <tr style="border-bottom: 2px solid #333; text-align: left;">
-                <th style="padding: 6px 0;">기간</th>
-                <th style="padding: 6px 0;">소속 및 프로젝트</th>
-                <th style="padding: 6px 0;">주요 내용</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 6px 0;">2024.03 - 현재</td>
-                <td style="padding: 6px 0;">개인 프로젝트 & 프리랜서</td>
-                <td style="padding: 6px 0;">정적 웹 빌더 개발, 타이포그래피 연구</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 6px 0;">2021.01 - 2024.02</td>
-                <td style="padding: 6px 0;">클라우드 솔루션사</td>
-                <td style="padding: 6px 0;">주니어 웹 개발자, UI/UX 접근성 개선</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h2>연혁 (Timeline)</h2>
-    <ul style="list-style-type: none; padding-left: 0; font-family: monospace;">
-        <li style="margin-bottom: 10px; border-left: 2px solid #ccc; padding-left: 15px;">
-            <strong>2026년 7월</strong>: 개인 정적 홈페이지 개설 및 운영 시스템 완비
-        </li>
-        <li style="margin-bottom: 10px; border-left: 2px solid #ccc; padding-left: 15px;">
-            <strong>2024년 3월</strong>: 정적 웹 기술과 미니멀 인터페이스 디자인 독립 학습 개시
-        </li>
-        <li style="margin-bottom: 10px; border-left: 2px solid #ccc; padding-left: 15px;">
-            <strong>2021년 1월</strong>: 소프트웨어 프로그래밍 첫 입문
-        </li>
-        <li style="margin-bottom: 10px; border-left: 2px solid #ccc; padding-left: 15px;">
-            <strong>2018년 9월</strong>: 기록하고 아카이빙하는 사색 글쓰기 습관 시작
-        </li>
-    </ul>
-
-    <h2>사용하는 장비 (Hardware & Software)</h2>
-    <ul>
-        <li><strong>하드웨어</strong>: 맥북 에어(MacBook Air), HHKB Professional Classic 키보드, 몰스킨 플레인 노트</li>
-        <li><strong>소프트웨어</strong>: VS Code, Vim 에디터, Obsidian (옵시디언), Firefox 개발자 에디션</li>
-        <li><strong>기타</strong>: 드립 커피 (예가체프 아이스), 차가운 우롱차</li>
-    </ul>
-</article>
-"""
 
 # -----------------------------------------------------------------
 # 3. 검색(search.html) 정적 바디 콘텐츠 및 스크립트 정의
@@ -659,6 +575,15 @@ def parse_markdown_to_html(md_text):
 def build_site():
     print("통합 정적 웹 빌더 구동 중...")
     
+    # 매번 최신 설정 파일 로딩 보장 (admin.py 변경 대비)
+    global config
+    if os.path.exists(CONFIG_FILE):
+        with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+            
+    site_title = config.get("site_title", "Art of Life")
+    site_domain = config.get("site_domain", "https://linesf.github.io/ArtofLife")
+
     posts_dir = "_posts"
     if not os.path.exists(posts_dir):
         os.makedirs(posts_dir)
@@ -817,20 +742,26 @@ def build_site():
     # -----------------------------------------------------------------
     # 통합 검색용 search_data.json 구성
     # -----------------------------------------------------------------
+    # 홈소개와 about 내용은 config에서 HTML을 긁어 본문만 평문 추출하여 셋팅
+    clean_index_text = re.sub(r'<[^>]*>', '', config.get("index_body", ""))
+    clean_index_text = re.sub(r'\s+', ' ', clean_index_text).strip()
+    clean_about_text = re.sub(r'<[^>]*>', '', config.get("about_body", ""))
+    clean_about_text = re.sub(r'\s+', ' ', clean_about_text).strip()
+
     search_data_list = [
         {
             "url": "index.html",
-            "title": "Art of Life - 홈 소개",
+            "title": f"{site_title} - 홈 소개",
             "category": "소개",
             "date": "2026-07-09",
-            "content": "환영합니다 이곳은 저의 소소한 일상 관심사 흘러가는 생각들을 차분히 적어두는 개인 홈페이지입니다 화려한 장식이나 복잡한 기능 없이 오직 텍스트와 단순한 구조로만 구성된 클래식한 공간입니다 지나치게 빠르고 시끄러운 인터넷 세상 속에서 잠시 쉬어가는 마음으로 글을 쓰고 정리하고 있습니다 일상 일기 하루 동안 겪었던 소소한 이야기나 감정들 관심사 독서 음악 프로그래밍 등 요즘 깊게 들여다보고 있는 것들에 대한 생각 단상 길을 걷다 문득 든 생각이나 짧은 메모들 단순함은 궁극의 정교함이다 레오나르도 다빈치"
+            "content": clean_index_text
         },
         {
             "url": "about.html",
             "title": "자기소개 (About Me)",
             "category": "소개",
             "date": "2026-07-11",
-            "content": "안녕하세요 이곳은 저의 소소한 생각들과 하루하루의 일상 그리고 깊어가는 관심사들을 모아두는 정적 웹사이트입니다 화려한 장식 없이 단순한 텍스트로 가득 찬 이 공간처럼 저 역시 본질적이고 명료한 것을 좋아합니다 역할 소프트웨어 엔지니어 테크니컬 라이터 관심사 웹 표준 정적 사이트 아키텍처 정보 설계 미니멀리즘 좋아하는 것 차분한 음악 듣기 책 읽기 사소한 일상의 기록 조용한 산책 가치관 덜어내는 삶 꾸준한 아카이빙 자신만의 속도 커리어 기술 개인 프로젝트 프리랜서 클라우드 솔루션사 주니어 개발자 프론트엔드 백엔드 유지보수 웹 접근성 개선 Git 마크다운 리눅스 Vim 에디터 연혁 2026년 7월 홈페이지 개설 2024년 3월 정적 웹 기술과 미니멀 인터페이스 디자인 공부 2021년 1월 프로그래밍 입문 2018년 9월 글쓰기 습관 장비 하드웨어 맥북 에어 맥북에어 HHKB 키보드 해피해킹 프로페셔널 클래식 몰스킨 플레인 노트 소프트웨어 비주얼 스튜디오 코드 VS Code Vim 옴니아웃라이너 Obsidian 옵시디언 파이어폭스 개발자 에디션 드립 커피 예가체프 아이스 우롱차"
+            "content": clean_about_text
         }
     ]
 
@@ -851,21 +782,21 @@ def build_site():
     # -----------------------------------------------------------------
     # 루트 정적 파일 3개 컴파일 (index.html, about.html, search.html)
     # -----------------------------------------------------------------
-    # 1. index.html 생성 (depth=0)
+    # 1. index.html 생성 (depth=0, config.json 내용 반영)
     index_html = render_html_layout(
         title="홈",
-        content=INDEX_BODY,
+        content=config.get("index_body", "<h1>소개글</h1>"),
         depth=0,
-        description="일상의 일기와 관심사, 생각을 기록하는 클래식한 개인 홈페이지"
+        description=f"{site_title} - 일상의 기록과 생각 정리 정원"
     )
     with open("index.html", 'w', encoding='utf-8') as f:
         f.write(index_html)
     print("[Core Built] index.html 갱신 완료")
 
-    # 2. about.html 생성 (depth=0)
+    # 2. about.html 생성 (depth=0, config.json 내용 반영)
     about_html = render_html_layout(
         title="소개",
-        content=ABOUT_BODY,
+        content=config.get("about_body", "<h1>소개글</h1>"),
         depth=0,
         description="가치관, 커리어, 연혁, 사용하는 장비를 한눈에 보여주는 종합 자기소개 페이지"
     )
@@ -893,19 +824,19 @@ def build_site():
     # 1. sitemap.xml 빌드
     today_str = datetime.today().strftime('%Y-%m-%d')
     sitemap_urls = [
-        f"    <url>\n        <loc>{SITE_DOMAIN}/index.html</loc>\n        <lastmod>{today_str}</lastmod>\n        <priority>1.0</priority>\n    </url>",
-        f"    <url>\n        <loc>{SITE_DOMAIN}/about.html</loc>\n        <lastmod>{today_str}</lastmod>\n        <priority>0.8</priority>\n    </url>",
-        f"    <url>\n        <loc>{SITE_DOMAIN}/search.html</loc>\n        <lastmod>{today_str}</lastmod>\n        <priority>0.8</priority>\n    </url>"
+        f"    <url>\n        <loc>{site_domain}/index.html</loc>\n        <lastmod>{today_str}</lastmod>\n        <priority>1.0</priority>\n    </url>",
+        f"    <url>\n        <loc>{site_domain}/about.html</loc>\n        <lastmod>{today_str}</lastmod>\n        <priority>0.8</priority>\n    </url>",
+        f"    <url>\n        <loc>{site_domain}/search.html</loc>\n        <lastmod>{today_str}</lastmod>\n        <priority>0.8</priority>\n    </url>"
     ]
     
     for cat_name, folder_name in CATEGORY_MAP.items():
         sitemap_urls.append(
-            f"    <url>\n        <loc>{SITE_DOMAIN}/{folder_name}/index.html</loc>\n        <lastmod>{today_str}</lastmod>\n        <priority>0.7</priority>\n    </url>"
+            f"    <url>\n        <loc>{site_domain}/{folder_name}/index.html</loc>\n        <lastmod>{today_str}</lastmod>\n        <priority>0.7</priority>\n    </url>"
         )
 
     for p in all_posts:
         sitemap_urls.append(
-            f"    <url>\n        <loc>{SITE_DOMAIN}/{p['url']}</loc>\n        <lastmod>{p['date']}</lastmod>\n        <priority>0.6</priority>\n    </url>"
+            f"    <url>\n        <loc>{site_domain}/{p['url']}</loc>\n        <lastmod>{p['date']}</lastmod>\n        <priority>0.6</priority>\n    </url>"
         )
 
     sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -921,7 +852,7 @@ def build_site():
     robots_txt = f"""User-agent: *
 Allow: /
 
-Sitemap: {SITE_DOMAIN}/sitemap.xml
+Sitemap: {site_domain}/sitemap.xml
 """
     with open("robots.txt", 'w', encoding='utf-8') as f:
         f.write(robots_txt)
