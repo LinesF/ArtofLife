@@ -304,10 +304,10 @@ ADMIN_HTML = """<!DOCTYPE html>
 
         <!-- 탭 네비게이션 -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('posts')">📝 글 관리 (Posts)</button>
-            <button class="tab-btn" onclick="switchTab('settings')">⚙️ 사이트 환경설정</button>
-            <button class="tab-btn" onclick="switchTab('pages')">📄 홈/소개 편집</button>
-            <button class="tab-btn" onclick="switchTab('deploy')">🚀 깃허브 배포</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'posts')">📝 글 관리 (Posts)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'settings')">⚙️ 사이트 환경설정</button>
+            <button class="tab-btn" onclick="switchTab(event, 'pages')">📄 홈/소개 편집</button>
+            <button class="tab-btn" onclick="switchTab(event, 'deploy')">🚀 깃허브 배포</button>
         </div>
 
         <!-- 1. 글 관리 콘텐츠 -->
@@ -467,12 +467,17 @@ ADMIN_HTML = """<!DOCTYPE html>
         }
 
         // 탭 전환
-        function switchTab(tabName) {
+        function switchTab(evt, tabName) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
             // 활성화
-            event.currentTarget.classList.add('active');
+            if (evt && evt.currentTarget) {
+                evt.currentTarget.classList.add('active');
+            } else if (window.event && window.event.srcElement) {
+                // IE/Legacy fallback
+                window.event.srcElement.classList.add('active');
+            }
             document.getElementById(`tab-${tabName}`).classList.add('active');
 
             if (tabName === 'posts') {
